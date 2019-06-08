@@ -1,4 +1,4 @@
-# filelog 1.0.1
+# filewriter 1.0.0
 
 Hello.
 
@@ -8,7 +8,7 @@ Simplicity within a certain complexity.
 
 # Install
 
-`pip install filelog`
+`pip install filewriter`
 
 # Documentation
 
@@ -37,7 +37,7 @@ Default: None
 ## Example
 
 ```code=python
-from filelog import Writer, Reader
+from filewriter import Writer, Reader
 
 Writer() >> {'allah': 'birdir'}
 # creates a file called debug.log and saves into

@@ -92,6 +92,8 @@ class Writer(Base):
 
         with open(filename, self.fopen_mode) as file:
             file.write(self.parse_data(other))
+            if self.debug:
+                print(self.parse_data(other))
 
         if self.callback:
             self.callback(filename)
@@ -120,9 +122,10 @@ class Reader(Base):
         file_data = []
         with open(filename, fopen_mode) as file:
             for line in file.readlines():
-                file_data.append(parse_data(line, is_json=json))
+                data_line = line
+                file_data.append(parse_data(data_line, is_json=json))
                 if debug:
-                    print(parse_data(line, is_json=json))
+                    print(parse_data(data_line, is_json=json))
         global variable
         return file_data[0] if len(file_data) == 1 else file_data
 
