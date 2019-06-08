@@ -106,7 +106,7 @@ class Writer(Base):
                 file_data = []
                 for data in other:
                     line = self.parse_data(data)
-                    file.write(str(line))
+                    file.write(f"{line}\r\n")
                     if self.debug:
                         print(line)
                     file_data.append(line)
