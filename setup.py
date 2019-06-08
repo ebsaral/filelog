@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='filelog',
-      version='1.0.0',
+      version='1.0.1',
       description='json supported easy debugger for python, in files. can also read.',
       long_description=readme(),
       long_description_content_type='text/markdown',

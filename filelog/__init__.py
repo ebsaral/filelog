@@ -92,8 +92,6 @@ class Writer(Base):
 
         with open(filename, self.fopen_mode) as file:
             file.write(self.parse_data(other))
-        if self.debug:
-            print(self.parse_data(other))
 
         if self.callback:
             self.callback(filename)
