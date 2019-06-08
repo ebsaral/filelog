@@ -49,7 +49,7 @@ Reverse({'allah': 'birdir'}) >> Writer()
 
 # reads from debug.log
 test = Reader() 
-print test
+print(test)
 >>> {'allah': 'birdir'}
 
 # formatted reader
