@@ -6,6 +6,10 @@ I am an easy debugger which prints into files. I can also read. In case you need
 
 Simplicity within a certain complexity.
 
+# Install
+
+`pip install writer`
+
 # Documentation
 
 ## param: filename
