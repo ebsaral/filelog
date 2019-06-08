@@ -31,10 +31,10 @@ class Reverse:
         self.item = item
 
     def __rshift__(self, other):
-        other.__lshift__(self.item)
+        return other.__lshift__(self.item)
 
     def __lshift__(self, other):
-        other.__rshift__(self.item)
+        return other.__rshift__(self.item)
 
 
 def get_filename(filename):
@@ -103,18 +103,24 @@ class Writer(Base):
                 or isinstance(other, set)
                 or isinstance(other, collections.Iterable)):
             with open(filename, self.fopen_mode) as file:
+                file_data = []
                 for data in other:
-                    file.write(str(self.parse_data(data)))
+                    line = self.parse_data(data)
+                    file.write(str(line))
                     if self.debug:
-                        print(self.parse_data(data))
-
-        with open(filename, self.fopen_mode) as file:
-            file.write(self.parse_data(other))
-            if self.debug:
-                print(self.parse_data(other))
-
+                        print(line)
+                    file_data.append(line)
+        else:
+            with open(filename, self.fopen_mode) as file:
+                data = self.parse_data(other)
+                file.write(data)
+                if self.debug:
+                    print(data)
+                file_data =data
         if self.callback:
             self.callback(filename)
+
+        return file_data
 
 
 class Reader(Base):
@@ -173,4 +179,4 @@ class FReader(Base):
         data = file_data[0] if len(file_data) == 1 else file_data
         global variable
         variable = data
-
+        return data
