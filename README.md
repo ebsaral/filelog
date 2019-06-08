@@ -42,7 +42,7 @@ from filewriter import Writer, Reader, FReader, Reverse
 Writer() << {'allah': 'birdir'}
 >>> {"allah": "birdir"}
 
-# reverse operator support: Only for Writer
+# reverse the operator, if that's easier to read
 Reverse({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
