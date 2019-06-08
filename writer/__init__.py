@@ -86,8 +86,6 @@ class Writer(Base):
         if self.callback:
             self.callback(filename)
 
-        return filename
-
 
 class Reader(Base):
     def __init__(self, filename=WRITER_DEFAULT_FILENAME, debug=True, json=True):
