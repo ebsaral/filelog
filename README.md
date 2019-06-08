@@ -63,8 +63,6 @@ Writer(callback: lambda filename: os.remove(filename)) >> {'test': 'callback'} #
 
 ## filewriter.Writer
 
-Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
-
 ```python
 
 Writer(
@@ -78,8 +76,6 @@ Writer(
 ```
 
 ## filewriter.Reader
-
-Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
 
 ```python
 
