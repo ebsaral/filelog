@@ -1,4 +1,4 @@
-# filewriter 1.0.4
+# filewriter 1.0.5
 
 Hello.
 
@@ -36,14 +36,14 @@ Default: None
 ## Examples
 
 ```python
-from filewriter import Writer, Reader, FReader, Dict
+from filewriter import Writer, Reader, FReader, Support
 
 # creates a file called debug.log and saves into
 Writer() << {'allah': 'birdir'}
 >>> {"allah": "birdir"}
 
-# reverse operator support: Only for dict
-Dict({'allah': 'birdir'}) >> Writer()
+# reverse operator support: Only for Writer
+Support({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
 # reads from debug.log
