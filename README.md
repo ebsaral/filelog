@@ -1,4 +1,4 @@
-# filewriter 1.0.0
+# filewriter 1.0.1
 
 Hello.
 
@@ -33,21 +33,73 @@ Default: True
 If set (a function), the function gets executed with the path of created file.
 Default: None
 
+## Examples
 
-## Example
+```python
+from filewriter import Writer, Reader, FReader
 
-```code=python
-from filewriter import Writer, Reader
-
-Writer() >> {'allah': 'birdir'}
 # creates a file called debug.log and saves into
+Writer() >> {'allah': 'birdir'}
 >>> {"allah": "birdir"}
 
-test = Reader() # reads from debug.log
+# reads from debug.log
+test = Reader() 
 print test
 >>> {'allah': 'birdir'}
+
+# formatted reader
+FReader() >> f"Output {readable}"
 
 # delete callback
 import os
 Writer(callback: lambda x: os.remove(x)) >> {'test': 'callback'} # deletes the file
+```
+
+
+
+# API
+
+## filewriter.Writer
+
+Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
+
+```python
+
+Writer(
+    filename="debug",
+    debug=True,
+    json=True,
+    callback=None,
+)
+
+```
+
+## filewriter.Reader
+
+Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
+
+```python
+
+Reader(
+    filename="debug",
+    debug=True,
+    json=True,
+    callback=None,
+)
+
+```
+
+## filewriter.FReader
+
+Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
+
+```python
+
+FReader(
+    filename="debug",
+    debug=True,
+    json=True,
+    callback=None,
+)
+
 ```

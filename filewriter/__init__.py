@@ -2,6 +2,8 @@ import collections
 import json
 import os
 
+WRITER_DEFAULT_PLACEHOLDER = "readable"
+
 try:
     import django.conf.settings as settings
 
@@ -13,9 +15,9 @@ except Exception:
         globals()[variable] = None
     else:
         print("WARNING: You didn't set the environment variable "
-              "READABLE_GLOBAL_VARIABLE_NAME. readable is created globally "
+              "READABLE_GLOBAL_VARIABLE_NAME. 'readable' is created globally "
               "as the default variable.")
-        globals()['readable'] = None
+        globals()[WRITER_DEFAULT_PLACEHOLDER] = None
 
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
 
@@ -41,6 +43,7 @@ class Base:
         "filename",
         "fopen_mode",
         "json",
+        "_shift",
     ]
 
     def __init__(
@@ -126,10 +129,33 @@ class Reader(Base):
                 file_data.append(parse_data(data_line, is_json=json))
                 if debug:
                     print(parse_data(data_line, is_json=json))
-        global variable
-        return file_data[0] if len(file_data) == 1 else file_data
+        data = file_data[0] if len(file_data) == 1 else file_data
+        return data
+
+
+class FReader(Base):
+    def __init__(
+            self,
+            filename=WRITER_DEFAULT_FILENAME,
+            debug=True,
+            json=True,
+    ):
+        super().__init__(
+            "r",
+            filename=filename,
+            debug=debug,
+            json=json,
+        )
 
     def __rshift__(self, other):
-        if self.debug:
-            print("WARNING: Doesn't make sense. If you think otherwise, create a PR.")
-        pass
+        file_data = []
+        with open(self.filename, self.fopen_mode) as file:
+            for line in file.readlines():
+                data_line = line
+                file_data.append(parse_data(data_line, is_json=self.json))
+                if self.debug:
+                    print(parse_data(data_line, is_json=self.json))
+        data = file_data[0] if len(file_data) == 1 else file_data
+        global variable
+        variable = data
+
