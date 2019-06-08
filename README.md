@@ -36,7 +36,7 @@ Default: None
 ## Examples
 
 ```python
-from filewriter import Writer, Reader, FReader, Reverse
+from filewriter import Writer, Reader, Reverse
 
 # creates a file called debug.log and saves into
 Writer() << {'allah': 'birdir'}
@@ -71,6 +71,7 @@ Writer(
     filename="debug",
     debug=True,
     json=True,
+    ext="log",
     callback=None,
 )
 
@@ -85,21 +86,7 @@ Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
 Reader(
     filename="debug",
     debug=True,
-    json=True,
-    callback=None,
-)
-
-```
-
-## filewriter.FReader
-
-Env Name: `READABLE_GLOBAL_VARIABLE_NAME` Default: `readable`
-
-```python
-
-FReader(
-    filename="debug",
-    debug=True,
+    ext="log",
     json=True,
     callback=None,
 )
