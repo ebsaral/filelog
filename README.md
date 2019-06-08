@@ -39,7 +39,7 @@ Default: None
 from filewriter import Writer, Reader, FReader
 
 # creates a file called debug.log and saves into
-Writer() >> {'allah': 'birdir'}
+Writer() << {'allah': 'birdir'}
 >>> {"allah": "birdir"}
 
 # reads from debug.log

@@ -82,7 +82,7 @@ class Writer(Base):
             callback=callback,
         )
 
-    def __rshift__(self, other):
+    def __lshift__(self, other):
         filename = get_filename(self.filename)
         if (isinstance(other, list)
                 or isinstance(other, set)
