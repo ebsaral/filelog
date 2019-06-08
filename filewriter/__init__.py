@@ -37,12 +37,12 @@ class Reverse:
         return other.__rshift__(self.item)
 
 
-def get_filename(filename):
+def get_filename(filename, ext='log'):
     if filename:
-        if filename.endswith('.log'):
+        if filename.endswith(f".{ext}"):
             return filename
-        return f"{filename}.log"
-    return f"{WRITER_DEFAULT_FILENAME}.log"
+        return f"{filename}.{ext}"
+    return f"{WRITER_DEFAULT_FILENAME}.{ext}"
 
 
 def parse_data(data, is_json=True):
@@ -55,6 +55,7 @@ class Base:
     __slots__ = [
         "callback",
         "debug",
+        "ext",
         "filename",
         "fopen_mode",
         "json",
@@ -68,12 +69,14 @@ class Base:
             debug=True,
             json=True,
             callback=None,
+            ext='log',
     ):
         self.debug = debug
-        self.filename = get_filename(filename)
+        self.filename = get_filename(filename, self.ext)
         self.fopen_mode = fopen_mode
         self.json = json
         self.callback = callback
+        self.ext = ext
 
     def parse_data(self, data):
         if self.json:
@@ -88,6 +91,7 @@ class Writer(Base):
             debug=True,
             json=True,
             callback=None,
+            ext='log',
     ):
         super().__init__(
             "w+",
@@ -95,10 +99,11 @@ class Writer(Base):
             debug=debug,
             json=json,
             callback=callback,
+            ext=ext,
         )
 
     def __lshift__(self, other):
-        filename = get_filename(self.filename)
+        filename = get_filename(self.filename, self.ext)
         if (isinstance(other, list)
                 or isinstance(other, set)
                 or isinstance(other, collections.Iterable)):
@@ -129,12 +134,14 @@ class Reader(Base):
             filename=WRITER_DEFAULT_FILENAME,
             debug=True,
             json=True,
+            ext='log',
     ):
         super().__init__(
             "r",
             filename=filename,
             debug=debug,
             json=json,
+            ext=ext,
         )
 
     def __new__(cls, item=WRITER_DEFAULT_FILENAME):
@@ -160,12 +167,14 @@ class FReader(Base):
             filename=WRITER_DEFAULT_FILENAME,
             debug=True,
             json=True,
+            ext='log',
     ):
         super().__init__(
             "r",
             filename=filename,
             debug=debug,
             json=json,
+            ext=log,
         )
 
     def __rshift__(self, other):
