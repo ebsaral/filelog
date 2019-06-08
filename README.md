@@ -1,4 +1,4 @@
-# filewriter 1.0.6
+# filewriter 1.0.7
 
 Hello.
 
