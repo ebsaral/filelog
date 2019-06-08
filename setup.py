@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='filewriter',
-      version='1.0.11',
+      version='1.0.13',
       description='json supported easy debugger for python, in files. can also read.',
       long_description=readme(),
       long_description_content_type='text/markdown',

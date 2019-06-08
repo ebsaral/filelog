@@ -2,27 +2,7 @@ import collections
 import json
 import os
 
-WRITER_DEFAULT_PLACEHOLDER = "readable"
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
-
-variable = None
-
-def set_globals():
-    global variable
-    try:
-        import django.conf.settings as settings
-
-        variable = settings.READABLE_GLOBAL_VARIABLE_NAME
-        globals()[settings.READABLE_GLOBAL_VARIABLE_NAME] = None
-    except Exception:
-        variable = os.getenv("READABLE_GLOBAL_VARIABLE_NAME")
-        if variable:
-            globals()[variable] = None
-        else:
-            print("WARNING: You didn't set the environment variable "
-                  "READABLE_GLOBAL_VARIABLE_NAME. 'readable' is created globally "
-                  "as the default variable.")
-            globals()[WRITER_DEFAULT_PLACEHOLDER] = None
 
 
 class Reverse:
@@ -80,7 +60,6 @@ class Base:
         self.fopen_mode = fopen_mode
         self.json = json
         self.callback = callback
-        set_globals()
 
     def parse_data(self, data):
         if self.json:
