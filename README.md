@@ -1,4 +1,4 @@
-# filewriter 1.0.1
+# filewriter 1.0.4
 
 Hello.
 
@@ -36,10 +36,14 @@ Default: None
 ## Examples
 
 ```python
-from filewriter import Writer, Reader, FReader
+from filewriter import Writer, Reader, FReader, Dict
 
 # creates a file called debug.log and saves into
 Writer() << {'allah': 'birdir'}
+>>> {"allah": "birdir"}
+
+# reverse operator support: Only for dict
+Dict({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
 # reads from debug.log
@@ -52,7 +56,7 @@ FReader() >> f"Output {readable}"
 
 # delete callback
 import os
-Writer(callback: lambda x: os.remove(x)) >> {'test': 'callback'} # deletes the file
+Writer(callback: lambda filename: os.remove(filename)) >> {'test': 'callback'} # deletes the file
 ```
 
 

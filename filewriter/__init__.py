@@ -22,6 +22,20 @@ except Exception:
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
 
 
+class Dict(dict):
+    __slots__ = [
+        'item',
+    ]
+
+    def __init__(self, item, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.item = item
+
+    def __rshift__(self, other):
+        if isinstance(other, Writer):
+            other.__lshift__(self.item)
+
+
 def get_filename(filename):
     if filename:
         if filename.endswith('.log'):
