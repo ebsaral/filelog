@@ -43,6 +43,7 @@ Writer() << {'allah': 'birdir'}
 >>> {"allah": "birdir"}
 
 # reverse the operator, if that's easier to read
+# https://docs.python.org/3/reference/simple_stmts.html#assignment-statements
 Reverse({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
