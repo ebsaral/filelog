@@ -22,7 +22,7 @@ except Exception:
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
 
 
-class Support:
+class Reverse:
     __slots__ = [
         'item',
     ]
@@ -31,8 +31,10 @@ class Support:
         self.item = item
 
     def __rshift__(self, other):
-        if isinstance(other, Writer):
-            other.__lshift__(self.item)
+        other.__lshift__(self.item)
+
+    def __lshift__(self, other):
+        other.__rshift__(self.item)
 
 
 def get_filename(filename):
