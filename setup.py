@@ -4,7 +4,7 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(name='writer',
+setup(name='filelog',
       version='1.0.0',
       description='json supported easy debugger for python, in files. can also read.',
       long_description=readme(),
@@ -18,17 +18,17 @@ setup(name='writer',
          'Topic :: Software Development :: Libraries :: Python Modules',
       ],
       keywords='json supported easy debugger for python debug file writer reader',
-      url='https://github.com/ebsaral/writer',
+      url='https://github.com/ebsaral/filelog',
       author='Emin Bugra Saral',
       author_email='eminbugrasaral@me.com',
       license='BSD',
-      packages=['writer'],
+      packages=['filelog'],
       install_requires=[],
       include_package_data=True,
       zip_safe=False,
       project_urls={
-        'Documentation': 'https://github.com/ebsaral/writer',
-        'Funding': 'https://github.com/ebsaral/writer',
-        'Source': 'https://github.com/ebsaral/wtier',
+        'Documentation': 'https://github.com/ebsaral/filelog',
+        'Funding': 'https://github.com/ebsaral/filelog',
+        'Source': 'https://github.com/ebsaral/filelog',
       },
 )
