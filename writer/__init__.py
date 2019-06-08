@@ -17,8 +17,8 @@ except Exception:
               "as the default variable.")
         globals()['readable'] = None
 
-
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
+
 
 def get_filename(filename):
     if filename:
@@ -43,8 +43,14 @@ class Base:
         "json",
     ]
 
-    def __init__(self, fopen_mode, filename=WRITER_DEFAULT_FILENAME, debug=True, json=True,
-                 callback=None):
+    def __init__(
+            self,
+            fopen_mode,
+            filename=WRITER_DEFAULT_FILENAME,
+            debug=True,
+            json=True,
+            callback=None,
+    ):
         self.debug = debug
         self.filename = get_filename(filename)
         self.fopen_mode = fopen_mode
@@ -58,7 +64,13 @@ class Base:
 
 
 class Writer(Base):
-    def __init__(self, filename=WRITER_DEFAULT_FILENAME, debug=True, json=True, callback=None):
+    def __init__(
+            self,
+            filename=WRITER_DEFAULT_FILENAME,
+            debug=True,
+            json=True,
+            callback=None,
+    ):
         super().__init__(
             "w+",
             filename=filename,
@@ -88,7 +100,12 @@ class Writer(Base):
 
 
 class Reader(Base):
-    def __init__(self, filename=WRITER_DEFAULT_FILENAME, debug=True, json=True):
+    def __init__(
+            self,
+            filename=WRITER_DEFAULT_FILENAME,
+            debug=True,
+            json=True,
+    ):
         super().__init__(
             "r",
             filename=filename,
