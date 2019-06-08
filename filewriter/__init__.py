@@ -3,23 +3,26 @@ import json
 import os
 
 WRITER_DEFAULT_PLACEHOLDER = "readable"
-
-try:
-    import django.conf.settings as settings
-
-    variable = settings.READABLE_GLOBAL_VARIABLE_NAME
-    globals()[settings.READABLE_GLOBAL_VARIABLE_NAME] = None
-except Exception:
-    variable = os.getenv("READABLE_GLOBAL_VARIABLE_NAME")
-    if variable:
-        globals()[variable] = None
-    else:
-        print("WARNING: You didn't set the environment variable "
-              "READABLE_GLOBAL_VARIABLE_NAME. 'readable' is created globally "
-              "as the default variable.")
-        globals()[WRITER_DEFAULT_PLACEHOLDER] = None
-
 WRITER_DEFAULT_FILENAME = os.getenv('READABLE_GLOBAL_VARIABLE_NAME', "debug")
+
+variable = None
+
+def set_globals():
+    global variable
+    try:
+        import django.conf.settings as settings
+
+        variable = settings.READABLE_GLOBAL_VARIABLE_NAME
+        globals()[settings.READABLE_GLOBAL_VARIABLE_NAME] = None
+    except Exception:
+        variable = os.getenv("READABLE_GLOBAL_VARIABLE_NAME")
+        if variable:
+            globals()[variable] = None
+        else:
+            print("WARNING: You didn't set the environment variable "
+                  "READABLE_GLOBAL_VARIABLE_NAME. 'readable' is created globally "
+                  "as the default variable.")
+            globals()[WRITER_DEFAULT_PLACEHOLDER] = None
 
 
 class Reverse:
@@ -72,11 +75,12 @@ class Base:
             ext='log',
     ):
         self.debug = debug
+        self.ext = ext
         self.filename = get_filename(filename, self.ext)
         self.fopen_mode = fopen_mode
         self.json = json
         self.callback = callback
-        self.ext = ext
+        set_globals()
 
     def parse_data(self, data):
         if self.json:
@@ -143,13 +147,17 @@ class Reader(Base):
             json=json,
             ext=ext,
         )
-
-    def __new__(cls, item=WRITER_DEFAULT_FILENAME):
-        return Reader._define(get_filename(item))
+        self.object = Reader._define(
+            self.filename,
+            fopen_mode=self.fopen_mode,
+            debug=self.debug,
+            json=self.json,
+            ext=self.ext,
+        )
 
     @classmethod
-    def _define(cls, filename, fopen_mode="r", debug=True, json=True):
-        filename = get_filename(filename)
+    def _define(cls, filename, fopen_mode="r", debug=True, json=True, ext='log'):
+        filename = get_filename(filename, ext=ext)
         file_data = []
         with open(filename, fopen_mode) as file:
             for line in file.readlines():
@@ -158,34 +166,4 @@ class Reader(Base):
                 if debug:
                     print(parse_data(data_line, is_json=json))
         data = file_data[0] if len(file_data) == 1 else file_data
-        return data
-
-
-class FReader(Base):
-    def __init__(
-            self,
-            filename=WRITER_DEFAULT_FILENAME,
-            debug=True,
-            json=True,
-            ext='log',
-    ):
-        super().__init__(
-            "r",
-            filename=filename,
-            debug=debug,
-            json=json,
-            ext=log,
-        )
-
-    def __rshift__(self, other):
-        file_data = []
-        with open(self.filename, self.fopen_mode) as file:
-            for line in file.readlines():
-                data_line = line
-                file_data.append(parse_data(data_line, is_json=self.json))
-                if self.debug:
-                    print(parse_data(data_line, is_json=self.json))
-        data = file_data[0] if len(file_data) == 1 else file_data
-        global variable
-        variable = data
         return data

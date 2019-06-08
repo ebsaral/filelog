@@ -1,4 +1,4 @@
-# filewriter 1.0.10
+# filewriter 1.0.11
 
 Hello.
 
@@ -48,12 +48,9 @@ Reverse({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
 # reads from debug.log
-test = Reader() 
+test = Reader().object 
 print(test)
 >>> {'allah': 'birdir'}
-
-# formatted reader
-FReader() >> f"Output {readable}"
 
 # delete callback
 import os
