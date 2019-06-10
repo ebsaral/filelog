@@ -28,9 +28,15 @@ def get_filename(filename, ext='log'):
     return f"{WRITER_DEFAULT_FILENAME}.{ext}"
 
 
-def parse_data(data, is_json=True):
+def read_data(data, is_json=True):
     if is_json:
         return json.loads(data)
+    return data
+
+
+def parse_data(data, is_json=True):
+    if is_json:
+        return json.dumps(data)
     return data
 
 
@@ -61,11 +67,6 @@ class Base:
         self.json = json
         self.callback = callback
 
-    def parse_data(self, data):
-        if self.json:
-            return json.dumps(data)
-        return data
-
 
 class Writer(Base):
     def __init__(
@@ -88,19 +89,18 @@ class Writer(Base):
     def __lshift__(self, other):
         filename = get_filename(self.filename, self.ext)
         if (isinstance(other, list)
-                or isinstance(other, set)
-                or isinstance(other, collections.Iterable)):
+                or isinstance(other, set)):
             with open(filename, self.fopen_mode) as file:
                 file_data = []
                 for data in other:
-                    line = self.parse_data(data)
+                    line = parse_data(data, is_json=self.json)
                     file.write(f"{line}\r\n")
                     if self.debug:
                         print(line)
                     file_data.append(line)
         else:
             with open(filename, self.fopen_mode) as file:
-                data = self.parse_data(other)
+                data = parse_data(other, is_json=self.json)
                 file.write(data)
                 if self.debug:
                     print(data)
@@ -126,7 +126,7 @@ class Reader(Base):
             json=json,
             ext=ext,
         )
-        self.object = Reader._define(
+        self.data = Reader._define(
             self.filename,
             fopen_mode=self.fopen_mode,
             debug=self.debug,
@@ -141,8 +141,8 @@ class Reader(Base):
         with open(filename, fopen_mode) as file:
             for line in file.readlines():
                 data_line = line
-                file_data.append(parse_data(data_line, is_json=json))
+                file_data.append(read_data(data_line, is_json=json))
                 if debug:
-                    print(parse_data(data_line, is_json=json))
+                    print(read_data(data_line, is_json=json))
         data = file_data[0] if len(file_data) == 1 else file_data
         return data

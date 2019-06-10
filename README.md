@@ -86,7 +86,13 @@ Reader(
     json=True,
     callback=None,
 )
-
+  
 ```
+
+### filewriter.Reader().data
+
+Set from file after the initialization
+
+---- 
 
 Twitter: @ebsaral
