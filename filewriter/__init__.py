@@ -101,10 +101,10 @@ class Writer(Base):
         else:
             with open(filename, self.fopen_mode) as file:
                 data = parse_data(other, is_json=self.json)
-                file.write(data)
+                file.write(f"{data}")
                 if self.debug:
                     print(data)
-                file_data =data
+                file_data = data
         if self.callback:
             self.callback(filename)
 

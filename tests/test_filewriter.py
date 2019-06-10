@@ -76,6 +76,13 @@ def test_writer_file_content():
         assert content == '{\"test\": \"mest\"}'
     os.remove('debug.log')
 
+def test_writer_file_content_with_list():
+    Writer() << ['1', '2']
+    with open('debug.log', 'r') as content_file:
+        content = content_file.read()
+        assert content == '"1"\n"2"\n'
+    os.remove('debug.log')
+
 def test_reader_init_with_no_param():
     Writer() << {}
     reader = Reader()
