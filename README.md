@@ -50,7 +50,7 @@ Reverse({'allah': 'birdir'}) >> Writer()
 >>> {"allah": "birdir"}
 
 # reads from debug.log
-test = Reader().object 
+test = Reader().data 
 print(test)
 >>> {'allah': 'birdir'}
 
