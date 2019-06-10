@@ -1,4 +1,6 @@
-# filewriter 2.0.0
+# filewriter 2.0.0 
+[![CircleCI](https://circleci.com/gh/ebsaral/filewriter.svg?style=svg)](https://circleci.com/gh/ebsaral/filewriter) 
+[![codecov](https://codecov.io/gh/ebsaral/filewriter/branch/master/graph/badge.svg)](https://codecov.io/gh/ebsaral/filewriter)
 
 Hello.
 

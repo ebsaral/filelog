@@ -101,3 +101,9 @@ def test_reader_init_with_params():
     assert reader.fopen_mode == 'r'
     assert reader.data == {'test': 'mest'}
     os.remove('test.txt')
+
+def test_reader_define():
+    Writer(filename='test', ext='txt') << {'test': 'mest'}
+    data = Reader._define('test', ext='txt')
+    assert data == {'test': 'mest'}
+    os.remove('test.txt')
