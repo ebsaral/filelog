@@ -86,7 +86,6 @@ Reader(
     debug=True,
     ext="log",
     json=True,
-    callback=None,
 )
   
 ```
