@@ -88,10 +88,7 @@ class Writer(Base):
 
     def __lshift__(self, other):
         filename = get_filename(self.filename, self.ext)
-        if (isinstance(other, list)
-                or isinstance(other, set)
-                or (isinstance(other, collections.Iterable)
-                    and not isinstance(other, dict))):
+        if isinstance(other, collections.Iterable) and not isinstance(other, dict):
             with open(filename, self.fopen_mode) as file:
                 file_data = []
                 for data in other:
