@@ -4,7 +4,7 @@
 
 Hello.
 
-I am an easy debugger which prints into files. I can also read. In case you need me ever.
+I am an easy debugger which prints into files, but can be used multi functional for production as well. I can also read. In case you need me ever.
 
 Simplicity within a certain complexity.
 
